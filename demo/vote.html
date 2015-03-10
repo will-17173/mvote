@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>vote</title>
+    <script src="http://ue.17173cdn.com/a/lib/pandora.js"></script>
+</head>
+
+<body>
+
+
+    <script>
+    pandora.use(['pandora/vote/1.0.0/upordown'], function(UpOrDown) {
+
+        var upOrDown = new UpOrDown({
+            channel: '10009',
+            webId: '1401249539',
+            kind: '1'
+        });
+
+        upOrDown.load(function(data) {
+            console.log(data);
+        });
+
+        upOrDown.support();
+        //upOrDown.oppose();
+
+    });
+
+
+    pandora.use(/*['pandora/vote/1.0.0/multievote'*/ ['../src/multievote' ], function(MultieVote) {
+
+        var multieVote = new MultieVote({
+            channel: '10009',
+            webIds: ['1401249560', '1401249525', '1401249527', '1401249530', '1401249569'],
+            kind: '1'
+        });
+
+        multieVote.load(function(data) {
+            console.log(data);
+        });
+
+        multieVote.vote('1401249569');
+
+    });
+
+
+    pandora.use(['pandora/vote/1.0.0/singlevote'], function(SingleVote) {
+        var singleVote = new SingleVote({
+            channel: '10009',
+            kind: '1',
+            webId: '2814902'
+        });
+
+        singleVote.load(function(data) {
+            console.log(data);
+        });
+
+        singleVote.vote('3');
+
+    });
+    </script>
+</body>
+
+</html>

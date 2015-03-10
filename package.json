@@ -1,0 +1,55 @@
+{
+    "name": "mvote",
+    "version": "1.0.0",
+    "description": "根据CMS2.0输出的投票内容生成新的适用于移动端的投票组件",
+    "keywords": ["mvote", "pandora"],
+    "homepage": "https://github.com/pandorajs/mvote",
+    "bugs": {
+        "url": "https://github.com/pandorajs/mvote/issues"
+    },
+    "licenses": [{
+        "type": "MIT",
+        "url": "https://github.com/pandorajs/mvote/LICENSE-MIT"
+    }],
+    "author": {
+        "name": "pandorajs",
+        "url": "https://github.com/pandorajs"
+    },
+    "main": "Gruntfile.js",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/pandorajs/mvote.git"
+    },
+    "scripts": {
+        "test": "grunt qunit"
+    },
+    "engines": {
+        "node": ">= 0.8.0"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "grunt": "*",
+        "grunt-cmd-transport": "crossjs/grunt-cmd-transport",
+        "grunt-cmd-concat": "*",
+        "grunt-contrib-clean": "*",
+        "grunt-contrib-copy": "*",
+        "grunt-contrib-jshint": "*",
+        "grunt-contrib-uglify": "*",
+        "grunt-contrib-yuidoc": "*",
+        "grunt-coveralls": "*",
+        "grunt-qunit-istanbul": "*",
+        "matchdep": "*"
+    },
+    "family": "pandora",
+    "spm": {
+        "output": ["multiplevote.js", "singlevote.js", "support.js", "vote.js", "supportui.js"],
+        "alias": {
+            "$": "$",
+            "handlebars": "gallery/handlebars/1.3.0/handlebars-runtime",
+            "importstyle": "pandora/importstyle/1.0.0/importstyle",
+            "base": "pandora/base/1.0.0/base",
+            "widget": "pandora/widget/1.0.0/widget",
+            "tips": "pandora/dialog/1.0.0/tips"
+        }
+    }
+}

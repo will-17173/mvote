@@ -1,0 +1,19 @@
+<div class="pn-vote"> 
+  <div data-voteid="{{voteid}}">
+    <h3>投票</h3>
+    <div class="vote-meta"><span>{{totalnum}}</span>人参与投票</div>
+    <dl class="vote-main">
+      <dt>{{votetitle}}</dt>
+      <dt>{{title}}</dt>
+      {{#each itemlist}}
+      <dd data-itemid="{{itemid}}" data-itemnum="{{itemnum}}"><span>{{plusOne @index}}.</span>{{itemtitle}}</dd>
+      {{/each}}
+    </dl>
+    <dl class="vote-result">
+      <dt>{{title}}</dt>
+      {{#each itemlist}}
+      <dd data-itemid="{{itemid}}" data-itemnum="{{itemnum}}"><span>{{plusOne @index}}.</span>{{itemtitle}}<div class="votes"><span class="nums"></span><span class="itemnum">{{itemnum}}</span></div></dd>
+      {{/each}}
+    </dl>
+  </div>
+</div>

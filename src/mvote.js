@@ -12,8 +12,12 @@ define(function(require, exports, module) {
     Tips = require('tips'),
     template = require('./mvote.handlebars');
 
+  //FastClick, 消除移动端300ms点击延迟
+  var attachFastClick = require('./fastclick');
+  attachFastClick(document.body);
+
   //Handlebars helper, 把投票选项的序号+1
-  var handleHelper = Handlebars.registerHelper("plusOne", function(index){
+  var handleHelper = Handlebars.registerHelper('plusOne', function(index){
     return index + 1;
   });
 
@@ -79,10 +83,10 @@ define(function(require, exports, module) {
         success: function(data){
           $(self.option('baseClass')).each(function(i, el){
             $(this).replaceWith(template(data.votelist[i]));
-          })
+          });
           self.bindVote();
         }
-      })
+      });
     },
 
     /**
@@ -98,7 +102,7 @@ define(function(require, exports, module) {
         var voteitem = $(this).data('itemid'),
           voteid = $(this).parents('[data-voteid]').data('voteid'),
           $totalNum = $vote.find('.vote-meta span'),
-          totalNum = parseInt($totalNum.text());
+          totalNum = parseInt($totalNum.text(), 10);
 
         $.ajax({
           url: self.option('voteProcUrl'),
@@ -109,25 +113,25 @@ define(function(require, exports, module) {
           dataType: 'JSONP',
           success: function(data){
             if(data.code == 1){
-              var $resultItem = $vote.find('.vote-result [data-itemid=' + voteitem + ']');
-              $totalNum.text(totalNum + 1);
-              $resultItem.attr('data-itemnum', parseInt($resultItem.data('itemnum')) + 1).addClass('voted')
-                .find('.itemnum').text($resultItem.data('itemnum') + 1);
               totalNum++;
+              $totalNum.text(totalNum);
+              var $resultItem = $vote.find('.vote-result [data-itemid=' + voteitem + ']');
+              $resultItem.attr('data-itemnum', parseInt($resultItem.attr('data-itemnum'), 10) + 1).addClass('voted')
+                .find('.itemnum').text($resultItem.attr('data-itemnum'));
             }
             $vote.find('.vote-result dd').each(function(){
-              var width = $(this).data('itemnum') / totalNum * 100 + '%';
+              var width = $(this).attr('data-itemnum') / totalNum * 100 + '%';
               $(this).find('.nums').css({width: width});
-            })
+            });
             $vote.find('.vote-main').hide();
             $vote.find('.vote-result').show();
             new Tips({
               content: data.msg,
               importStyle: true
-            })
+            });
           }
-        })
-      })
+        });
+      });
     }
 
   });

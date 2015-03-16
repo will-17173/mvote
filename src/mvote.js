@@ -10,6 +10,7 @@ define(function(require, exports, module) {
     Widget = require('widget'),
     Handlebars = require('handlebars'),
     Tips = require('tips'),
+    importStyle = require('./style.css'),
     template = require('./mvote.handlebars');
 
   //FastClick, 消除移动端300ms点击延迟
@@ -30,6 +31,13 @@ define(function(require, exports, module) {
   var Mvote = Widget.extend({
 
     defaults: {
+
+      /**
+       * 是否使用默认样式 
+       * @attribute importStyle
+       * @type {Boolean}
+       */   
+      importStyle: true,
 
       /**
        * 投票信息请求地址
@@ -59,6 +67,7 @@ define(function(require, exports, module) {
       if($el.length < 1){
        return;
       }
+      this.option('importStyle') && importStyle();
       $el.hide();
       var voteIds = [];
       for(var i = 0; i < $el.length; i++){

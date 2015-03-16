@@ -58,7 +58,28 @@ define(function(require, exports, module) {
        * @attribute baseClass
        * @type {String}
        */
-      baseClass: '.vote'
+      baseClass: '.vote',
+
+      /**
+       * 手工插入投票ID
+       * @attribute voteIds
+       * @type {Array}
+       */ 
+      voteIds: [],
+
+      /**
+       * 手工投票插入的元素(jQuery选择器)
+       * @attribute voteId
+       * @type {Array}
+       */ 
+      appendToElement: '',
+
+      /**
+       * 是否删除页面中原有投票
+       * @attribute removeOldVote
+       * @type {Boolean}
+       */ 
+      removeOldVote: false
     },
 
     setup: function() {
@@ -69,19 +90,28 @@ define(function(require, exports, module) {
       }
       this.option('importStyle') && importStyle();
       $el.hide();
-      var voteIds = [];
-      for(var i = 0; i < $el.length; i++){
-        voteIds.push($el.eq(i).find('[name=vote_id]').val());
+
+      if(!this.option('removeOldVote')){
+        var voteIds = [];
+        for(var i = 0; i < $el.length; i++){
+          voteIds.push($el.eq(i).find('[name=vote_id]').val());
+        }
+        this.getVoteData(voteIds);
       }
-      this.getVoteData(voteIds);
+
+      if(this.option('voteIds').length > 0){
+        this.getVoteData(this.option('voteIds'), true);
+      }
+      
     },
 
     /**
      * 获取投票数据
      * @method getVoteData
      * @param  {Array} voteIds 投票ID的数组集合
+     * @param  {Boolean} appendToEl 是否手动插入投票
      */
-    getVoteData: function(voteIds){
+    getVoteData: function(voteIds, appendToEl){
       var self = this;
       $.ajax({
         url: self.option('voteInfoUrl'),
@@ -90,9 +120,15 @@ define(function(require, exports, module) {
         },
         dataType: 'JSONP',
         success: function(data){
-          $(self.option('baseClass')).each(function(i, el){
-            $(this).replaceWith(template(data.votelist[i]));
-          });
+          if(appendToEl){
+            for(var i = 0; i < voteIds.length; i++){
+              $(template(data.votelist[i])).appendTo(self.option('appendToElement') || 'body');
+            }
+          } else{
+            $(self.option('baseClass')).each(function(i, el){
+              $(this).replaceWith(template(data.votelist[i]));
+            });     
+          }
           self.bindVote();
         }
       });

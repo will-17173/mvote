@@ -56,9 +56,11 @@
  
  <script type="text/javascript">
     seajs.use(['../src/mvote'],function(Mvote){
-        new Mvote();
+        new Mvote({
+            voteIds: [9875, 9876],
+            appendToElement: 'body'
+        });
     });
-
 </script>
 </body>
 

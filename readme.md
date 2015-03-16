@@ -3,7 +3,7 @@
 [![Build Status](https://api.travis-ci.org/pandorajs/vote.png?branch=master)](http://travis-ci.org/pandorajs/vote)
 [![Coverage Status](https://coveralls.io/repos/pandorajs/vote/badge.png?branch=master)](https://coveralls.io/r/pandorajs/vote?branch=master)
 
- > 根据CMS2.0输出的投票内容生成新的适用于移动端的投票组件
+ > 基于投票系统JSONP接口的移动端的投票组件
 
 ##how to demo
 

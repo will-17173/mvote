@@ -58,7 +58,9 @@
     seajs.use(['../src/mvote'],function(Mvote){
         new Mvote({
             voteIds: [9875, 9876],
-            appendToElement: 'body'
+            appendToElement: 'body',
+            importStyle: true,
+            removeOldVote: false
         });
     });
 </script>

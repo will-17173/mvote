@@ -13,9 +13,6 @@ define(function(require, exports, module) {
     importStyle = require('./style.css'),
     template = require('./mvote.handlebars');
 
-  //FastClick, 消除移动端300ms点击延迟
-  var attachFastClick = require('./fastclick');
-  attachFastClick(document.body);
 
   //Handlebars helper, 把投票选项的序号+1
   var handleHelper = Handlebars.registerHelper('plusOne', function(index){
@@ -85,7 +82,7 @@ define(function(require, exports, module) {
     setup: function() {
 
       var $el = $(this.option('baseClass'));
-      if($el.length < 1){
+      if($el.length < 1 && this.option('voteIds').length < 1){
        return;
       }
       this.option('importStyle') && importStyle();
@@ -97,6 +94,8 @@ define(function(require, exports, module) {
           voteIds.push($el.eq(i).find('[name=vote_id]').val());
         }
         this.getVoteData(voteIds);
+      } else{
+        $el.remove();
       }
 
       if(this.option('voteIds').length > 0){
